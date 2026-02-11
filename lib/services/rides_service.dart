@@ -2,28 +2,40 @@ import '../data/dummy_data.dart';
 import '../model/ride/locations.dart';
 import '../model/ride/ride.dart';
 
-////
-///   This service handles:
-///   - The list of available rides
-///
 class RidesService {
   static List<Ride> availableRides = fakeRides; // TODO for now fake data
 
-  static List<Ride> filterByDeparture(Location departure) {
-    availableRides.where((e) => e.departureLocation == departure);
-    return availableRides ;
-  }
-    static List<Ride> filterBySeatRequested(Location seatRequested) {
-      availableRides.where((e) => e.availableSeats >= seatRequested);
-    return availableRides ;
+  //
+  //  filter the rides starting from given departure location
+  //
+  static List<Ride> _filterByDeparture(List<Ride> rides, Location departure) {
+    return rides.where((ride) => ride.departureLocation == departure).toList();
   }
 
-    static List<Ride> filterBy({Location? departure, int? seatRequested}) {
-     if (departure!= null && seatRequested == null ) {
-      availableRides.where((e) =>  e.availableSeats == departure).toList(); 
-     }
+  //
+  //  filter the rides starting for the given requested seat number
+  //
+  static List<Ride> _filterBySeatRequested(
+    List<Ride> rides,
+    int requestedSeat,
+  ) {
+    return rides.where((ride) => ride.availableSeats >= requestedSeat).toList();
+  }
 
+  //
+  //  filter the rides   with several optional criteria (flexible filter options)
+  //
+  static List<Ride> filterBy({Location? departure, int? seatRequested}) {
+    return availableRides.where((ride) {
+      if (departure != null && departure != ride.departureLocation) {
+        return false;
+      }
 
-    return [];
+      if (seatRequested != null && seatRequested > ride.availableSeats) {
+        return false; // i wil not keep this ride since it has less seats than requested
+      }
+
+      return true;
+    }).toList();
   }
 }
