@@ -1,6 +1,5 @@
 
-import 'package:blahblah/ui/screens/blaButton.dart';
-//import 'package:blahblah/ui/screens/test_screen.dart';
+import 'package:blahblah/ui/screens/test_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ScreenView(),
+      home: TestScreen(),
     );
   }
 }
