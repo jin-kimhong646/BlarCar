@@ -26,6 +26,7 @@ class Location {
     return other is Location && other.name == name && other.country == country;
   }
 
+
   @override
   int get hashCode => name.hashCode ^ country.hashCode;
 

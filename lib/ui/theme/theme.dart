@@ -81,4 +81,8 @@ ThemeData blaTheme =  ThemeData(
   fontFamily: 'Eesti',
   scaffoldBackgroundColor: Colors.white,
 );
+
+class BlaSize {
+  static const double icon = 24 ; 
+}
  
